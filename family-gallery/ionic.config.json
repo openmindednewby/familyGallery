@@ -1,0 +1,7 @@
+{
+  "name": "FamilyGallery",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
