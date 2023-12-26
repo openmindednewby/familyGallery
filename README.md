@@ -1,3 +1,7 @@
+# Family Gallery App
+
+Simple gallery app for your tablet. Use to show live images.
+
 - Go to your new project: cd .\family-gallery
 - Run ionic serve within the app directory to see your app in the browser
 - Run ionic capacitor add to add a native iOS or Android project using Capacitor
