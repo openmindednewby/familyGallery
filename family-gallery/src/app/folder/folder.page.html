@@ -1,6 +1,15 @@
 <ion-content class="content" [fullscreen]="true">
-    <ion-button>
+    <ion-input type="file" multiple (change)="chooseFile($event)">
+
+    </ion-input>
+
+    <div *ngIf="currentImageUrl">
+        <ion-img [src]="currentImageUrl" alt="Couldn't load image"></ion-img>
+    </div>
+    <!-- <ion-button>
         <ion-icon aria-hidden="true" slot="start" name="folder-open-outline"></ion-icon>
         Select Folder
-    </ion-button>
+    </ion-button> -->
+
+
 </ion-content>
