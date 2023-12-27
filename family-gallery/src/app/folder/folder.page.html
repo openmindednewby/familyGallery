@@ -1,15 +1,20 @@
+<ng-container *ngIf="startPreview$ | async"></ng-container>
+
 <ion-content class="content" [fullscreen]="true">
-    <ion-input type="file" multiple (change)="chooseFile($event)">
+    <ng-container *ngIf="!isFullScreen">
+        <ion-input type="file" multiple (change)="chooseFile($event)">
+        </ion-input>
+    </ng-container>
 
-    </ion-input>
+    <ng-container *ngIf="isFullScreen">
+        <ion-button class="fullscreen-button" color="medium" (click)="switchFullScreen()">Exit Full Screen</ion-button>
+    </ng-container>
 
-    <div *ngIf="currentImageUrl">
-        <ion-img [src]="currentImageUrl" alt="Couldn't load image"></ion-img>
-    </div>
-    <!-- <ion-button>
-        <ion-icon aria-hidden="true" slot="start" name="folder-open-outline"></ion-icon>
-        Select Folder
-    </ion-button> -->
+    <ng-container *ngIf="!isFullScreen">
+        <ion-button color="dark" (click)="switchFullScreen()">Enter Full Screen</ion-button>
+    </ng-container>
 
-
+    <ng-container *ngIf="currentImageUrl">
+        <ion-img class="image" [src]="currentImageUrl" alt="Couldn't load image"></ion-img>
+    </ng-container>
 </ion-content>
