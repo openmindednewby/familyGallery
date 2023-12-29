@@ -18,21 +18,20 @@
     left: 0px;
 }
 
-.fade-in-image {
-    animation: fadeIn;
-    animation-delay: 4s;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
+// .fade-in-image {
+//     animation: fadeIn;
+//     animation-delay: 4s;
+//     animation-duration: 2s;
+//     animation-iteration-count: infinite;
+// }
+// @keyframes fadeIn {
+//     0% {
+//         opacity: 1;
+//     }
+//     50% {
+//         opacity: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//     }
+// }

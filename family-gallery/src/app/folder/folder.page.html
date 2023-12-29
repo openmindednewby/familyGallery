@@ -1,24 +1,24 @@
 <ng-container *ngIf="startPreview$ | async"></ng-container>
 
 <ion-content class="content" [fullscreen]="true">
-  <ng-container *ngIf="!isFullScreen">
-    <ion-input type="file" multiple (change)="chooseFile($event)">
-    </ion-input>
-  </ng-container>
+    <ng-container *ngIf="!isFullScreen">
+        <ion-input type="file" multiple (change)="chooseFile($event)">
+        </ion-input>
+    </ng-container>
 
-  <ng-container *ngIf="isFullScreen">
-    <ion-button class="fullscreen-button" color="medium" (click)="switchFullScreen()">
-      <ion-icon name="contract-outline"></ion-icon>
-    </ion-button>
-  </ng-container>
+    <ng-container *ngIf="isFullScreen">
+        <ion-button class="fullscreen-button" color="medium" (click)="switchFullScreen()">
+            <ion-icon name="contract-outline"></ion-icon>
+        </ion-button>
+    </ng-container>
 
-  <ng-container *ngIf="!isFullScreen">
-    <ion-button class="fullscreen-button" color="light" (click)="switchFullScreen()">
-      <ion-icon name="expand-outline"></ion-icon>
-    </ion-button>
-  </ng-container>
+    <ng-container *ngIf="!isFullScreen">
+        <ion-button class="fullscreen-button" color="light" (click)="switchFullScreen()">
+            <ion-icon name="expand-outline"></ion-icon>
+        </ion-button>
+    </ng-container>
 
-  <ng-container *ngIf="currentImageUrl">
-    <ion-img class="image fade-in-image" [src]="currentImageUrl" alt="Couldn't load image"></ion-img>
-  </ng-container>
+    <ng-container *ngIf="currentImageUrl">
+        <ion-img class="image" [src]="currentImageUrl" alt="Couldn't load image"></ion-img>
+    </ng-container>
 </ion-content>
