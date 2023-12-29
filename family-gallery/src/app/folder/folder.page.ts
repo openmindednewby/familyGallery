@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription, filter, map } from 'rxjs';
+import { BehaviorSubject, Subscription, filter, interval, map, skip, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-folder',
@@ -11,43 +11,44 @@ export class FolderPage implements OnInit, OnDestroy {
   public isFullScreen = false;
   public files: File[] = [];
   public currentImageUrl = '';
-  public switchImageDelayMs = 2000;
+  public switchImageDelayMs = 5000;
 
   private startPreviewSubject = new BehaviorSubject<boolean>(false);
   public startPreview$ = this.startPreviewSubject.asObservable();
 
   private subscription = new Subscription()
+  private intervalSubscription = new Subscription()
+  private currentImageIndex = 0;
 
   public ngOnInit(): void {
     this.subscription.add(this.startPreview$.pipe(
       filter(value => value),
-      map(() => this.loadImages())
+      map(() => this.startPresentation())
     ).subscribe());
   }
 
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.intervalSubscription?.unsubscribe();
   }
 
   public chooseFile(event: any) {
     if (event.target.files && event.target.files[0]) {
+      this.currentImageIndex = 0;
       this.files = Array.from(event.target.files);
+      this.startPreviewSubject.next(true);
     }
-
-    this.startPreviewSubject.next(true);
   }
 
-  public loadImages() {
-    this.files.forEach((image, index) => {
-      if(index ===0) {
-        this.readAndApplyImage(image, index);
-      } else {
-        this.readAndApplyImage(image, index, true);
-      }
-    });
+  public startPresentation(): void {
+    this.currentImageIndex = 0;
+
+    this.loadImagesOneByOne();
+    this.intervalSubscription?.unsubscribe();
+    this.intervalSubscription = interval(this.switchImageDelayMs).pipe(skip(1),switchMap(_ => this.loadImagesOneByOne())).subscribe();
   }
 
-  public switchFullScreen() {
+  public switchFullScreen(): void {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
       this.isFullScreen = true;
@@ -57,37 +58,31 @@ export class FolderPage implements OnInit, OnDestroy {
     }
   }
 
-  private isLastItem(index: number) {
-    if (this.files.length === (index + 1)) {
-      return true;
+  private async loadImagesOneByOne(): Promise<void> {
+    if(this.files.length < 1) {
+      return;
     }
-    return false;
+
+    if(this.currentImageIndex + 1 === this.files.length) {
+      if(!this.isLoopEnabled) {
+        return;
+      }
+
+      this.currentImageIndex = 0;
+    }
+
+    const file = this.files[this.currentImageIndex];
+    await this.readAndApplyImage(file);
+    this.currentImageIndex++;
   }
 
-  private readAndApplyImage(image: File, index: number, enableTimeOut = false) {
+  private async readAndApplyImage(image: File): Promise<void> {
     const reader = new FileReader();
     reader.onload = async (ev) => {
-
-      if(enableTimeOut) {
-        if ((typeof reader.result) === 'string') {
-          this.currentImageUrl = ev.target?.result as string;
-          await this.sleep(this.switchImageDelayMs);
-          const shouldRestartLoop = this.isLoopEnabled && this.isLastItem(index);
-          if(shouldRestartLoop) {
-            this.startPreviewSubject.next(true);
-          }
-        }
-        } else {
-            if ((typeof reader.result) === 'string') {
-              this.currentImageUrl = ev.target?.result as string;
-            }
-        }
+      if ((typeof reader.result) === 'string') {
+        this.currentImageUrl = ev.target?.result as string;
+      }
     };
     reader.readAsDataURL(image);
   }
-  private sleep(ms: number) {
-    return new Promise((r) => setTimeout(r, ms));
-  }
 }
-
-
