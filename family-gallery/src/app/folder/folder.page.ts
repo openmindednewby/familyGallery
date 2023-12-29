@@ -40,15 +40,9 @@ export class FolderPage implements OnInit, OnDestroy {
   public loadImages() {
     this.files.forEach((image, index) => {
       if(index ===0) {
-        this.readAndApplyImage(image);
+        this.readAndApplyImage(image, index);
       } else {
-        setTimeout(() => {
-          this.readAndApplyImage(image);
-          const shouldRestartLoop = this.isLoopEnabled && this.isLastItem(index);
-          if(shouldRestartLoop) {
-            this.startPreviewSubject.next(true);
-          }
-      }, this.switchImageDelayMs);
+        this.readAndApplyImage(image, index, true);
       }
     });
   }
@@ -70,13 +64,30 @@ export class FolderPage implements OnInit, OnDestroy {
     return false;
   }
 
-  private readAndApplyImage(image: File) {
+  private readAndApplyImage(image: File, index: number, enableTimeOut = false) {
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      if ((typeof reader.result) === 'string') {
-        this.currentImageUrl = ev.target?.result as string;
-      }
+    reader.onload = async (ev) => {
+
+      if(enableTimeOut) {
+        if ((typeof reader.result) === 'string') {
+          this.currentImageUrl = ev.target?.result as string;
+          await this.sleep(this.switchImageDelayMs);
+          const shouldRestartLoop = this.isLoopEnabled && this.isLastItem(index);
+          if(shouldRestartLoop) {
+            this.startPreviewSubject.next(true);
+          }
+        }
+        } else {
+            if ((typeof reader.result) === 'string') {
+              this.currentImageUrl = ev.target?.result as string;
+            }
+        }
     };
     reader.readAsDataURL(image);
   }
+  private sleep(ms: number) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
 }
+
+
