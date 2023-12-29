@@ -11,7 +11,7 @@ export class FolderPage implements OnInit, OnDestroy {
   public isFullScreen = false;
   public files: File[] = [];
   public currentImageUrl = '';
-  public switchImageDelayMs = 5000;
+  public switchImageDelayMs = 2000;
 
   private startPreviewSubject = new BehaviorSubject<boolean>(false);
   public startPreview$ = this.startPreviewSubject.asObservable();
