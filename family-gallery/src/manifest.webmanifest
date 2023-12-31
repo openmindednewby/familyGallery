@@ -8,49 +8,49 @@
     "start_url": "./",
     "icons": [{
             "src": "assets/icons/camera-72.png",
-            "sizes": "72x72",
+            "sizes": "72x53",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-96.png",
-            "sizes": "96x96",
+            "sizes": "96x71",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-128.png",
-            "sizes": "128x128",
+            "sizes": "128x95",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-144.png",
-            "sizes": "144x144",
+            "sizes": "144x107",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-152.png",
-            "sizes": "152x152",
+            "sizes": "152x113",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-192.png",
-            "sizes": "192x192",
+            "sizes": "192x142",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-384.png",
-            "sizes": "384x384",
+            "sizes": "384x285",
             "type": "image/png",
             "purpose": "maskable any"
         },
         {
             "src": "assets/icons/camera-580x430.png",
-            "sizes": "512x512",
+            "sizes": "512x430",
             "type": "image/png",
             "purpose": "maskable any"
         }
