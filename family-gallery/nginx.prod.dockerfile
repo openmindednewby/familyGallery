@@ -16,6 +16,7 @@ VOLUME /var/cache/nginx
 COPY --from=node /app/www /usr/share/nginx/html
 
 # Stage 3 docker build -t family-gallery -f nginx.prod.dockerfile .
-# Stage 4 docker run -dp 4298:80 family-gallery -network=internal-docker --ip=172.18.0.12 ionic-example-app
+# Stage 4 ddocker run -dp 4298:80 --name family-gallery --network=internal-docker --ip=172.18.0.4 family-gallery
+
 
 
