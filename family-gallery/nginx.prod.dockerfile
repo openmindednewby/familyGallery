@@ -3,10 +3,11 @@
 FROM node:18 as node
 LABEL author="Jimmy Walker"
 WORKDIR /app
-COPY package.json package.json
+COPY package.json package-lock.json ./
 RUN npm config set legacy-peer-deps true
 RUN npm install -g ionic
-RUN npm install
+# Use npm ci to install from lock file (deterministic, respects overrides)
+RUN npm ci
 COPY . .
 RUN ionic build --prod
 
