@@ -2,6 +2,10 @@
 
 Simple gallery app for your tablet. Use to show live images. This is an MVP. This web app is deployed here http://167.235.51.52:4298. Just head to this url and upload your images, turn your tabled into a live family gallery!!!
 
+## Deployment
+
+See [DEPLOY.md](DEPLOY.md) for the build → push → deploy flow across staging and production.
+
 - TODO
   - Fix styling of buttons
   - update background to black
