@@ -2,9 +2,10 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription, filter, interval, map, skip, switchMap, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-folder',
-  templateUrl: './folder.page.html',
-  styleUrls: ['./folder.page.scss'],
+    selector: 'app-folder',
+    templateUrl: './folder.page.html',
+    styleUrls: ['./folder.page.scss'],
+    standalone: false
 })
 export class FolderPage implements OnInit, OnDestroy {
   public isLoopEnabled = true;
@@ -75,7 +76,7 @@ export class FolderPage implements OnInit, OnDestroy {
   }
 
   @HostListener('document:keydown.escape', ['$event'])
-  public onKeydownHandler(_: KeyboardEvent) {
+  public onKeydownHandler(_: Event) {
     if(this.isFullScreen) {
       this.exitFullScreen();
     }
