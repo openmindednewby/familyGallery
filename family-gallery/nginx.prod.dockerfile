@@ -1,6 +1,6 @@
 # Stage 1 BUILD
 #FROM node:latest as node
-FROM node:18 as node
+FROM node:22 as node
 LABEL author="Jimmy Walker"
 WORKDIR /app
 COPY package.json package-lock.json ./
